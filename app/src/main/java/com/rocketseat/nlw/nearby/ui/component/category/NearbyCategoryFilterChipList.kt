@@ -14,13 +14,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rocketseat.nlw.nearby.data.model.NearbyCategory
+import com.rocketseat.nlw.nearby.data.model.Category
 
 @Composable
 fun NearbyCategoryFilterChipList(
     modifier: Modifier = Modifier,
-    categories: List<NearbyCategory>,
-    onSelectedCategoryChanged: (NearbyCategory) -> Unit
+    categories: List<Category>,
+    onSelectedCategoryChanged: (Category) -> Unit
 
 ) {
     var selectedCategoryId  by remember { mutableStateOf(categories.firstOrNull()?.id.orEmpty()) }
@@ -61,19 +61,19 @@ private  fun NearbyCategoryFilterChipListView(){
     NearbyCategoryFilterChipList(
         modifier = Modifier.fillMaxWidth(),
         categories = listOf(
-            NearbyCategory(
+            Category(
                 id = "1",
                 name = "Alimentação"
             ),
-            NearbyCategory(
+            Category(
                 id = "2",
                 name = "Cinema"
             ),
-            NearbyCategory(
+            Category(
                 id = "3",
                 name = "Farmácia"
             ),
-            NearbyCategory(
+            Category(
                 id = "4",
                 name = "Supermercado"
             )
