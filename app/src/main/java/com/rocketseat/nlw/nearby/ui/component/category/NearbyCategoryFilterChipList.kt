@@ -15,37 +15,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rocketseat.nlw.nearby.data.model.Category
+import com.rocketseat.nlw.nearby.data.model.mock.mockCategories
 
 @Composable
 fun NearbyCategoryFilterChipList(
     modifier: Modifier = Modifier,
     categories: List<Category>,
-    onSelectedCategoryChanged: (Category) -> Unit
+    onSelectedCategoryChanged: (Category) -> Unit,
 
-) {
-    var selectedCategoryId  by remember { mutableStateOf(categories.firstOrNull()?.id.orEmpty()) }
+    ) {
+    var selectedCategoryId by remember { mutableStateOf(categories.firstOrNull()?.id.orEmpty()) }
 
-    LaunchedEffect(key1 =  selectedCategoryId) {
-        var selectCategoryOrNull = categories.find {it.id == selectedCategoryId }
+    LaunchedEffect(key1 = selectedCategoryId) {
+        var selectCategoryOrNull = categories.find { it.id == selectedCategoryId }
 
         selectCategoryOrNull?.let {
             onSelectedCategoryChanged(it)
         }
 
     }
-    LazyRow (
+    LazyRow(
         modifier = modifier,
-        contentPadding = PaddingValues( horizontal = 24.dp),
-        horizontalArrangement =  Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 24.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     )
     {
-        items( items = categories, key = { it.id }){ category ->
+        items(items = categories, key = { it.id }) { category ->
             NearbyCategoryFilterChip(
                 category = category,
                 isSelected = category.id == selectedCategoryId,
                 onClick = { isSelect ->
-                   if(isSelect)
-                       selectedCategoryId = category.id
+                    if (isSelect)
+                        selectedCategoryId = category.id
                 }
 
             )
@@ -55,31 +56,15 @@ fun NearbyCategoryFilterChipList(
     }
 
 }
+
 @Preview
 @Composable
-private  fun NearbyCategoryFilterChipListView(){
+private fun NearbyCategoryFilterChipListView() {
     NearbyCategoryFilterChipList(
         modifier = Modifier.fillMaxWidth(),
-        categories = listOf(
-            Category(
-                id = "1",
-                name = "Alimentação"
-            ),
-            Category(
-                id = "2",
-                name = "Cinema"
-            ),
-            Category(
-                id = "3",
-                name = "Farmácia"
-            ),
-            Category(
-                id = "4",
-                name = "Supermercado"
-            )
-        ),
-        onSelectedCategoryChanged ={}
+        categories = mockCategories,
+        onSelectedCategoryChanged = {}
 
-        )
+    )
 
 }
