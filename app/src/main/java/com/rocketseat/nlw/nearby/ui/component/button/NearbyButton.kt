@@ -40,7 +40,7 @@ fun NearbyButton(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(2.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
 
         ) {
 
