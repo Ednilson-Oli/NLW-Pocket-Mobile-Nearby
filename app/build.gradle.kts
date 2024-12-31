@@ -36,11 +36,19 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
+    }
+    buildToolsVersion = "35.0.0"
+    dependenciesInfo {
+        includeInApk = true
+        includeInBundle = true
     }
 }
 
 dependencies {
-
+    implementation(libs.coil.compose)
+    implementation(libs.maps.compose)
+    
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

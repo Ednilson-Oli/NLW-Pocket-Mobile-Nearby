@@ -23,7 +23,7 @@ fun NearbyMarketCardList(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
-            Text(text = "Explore locais perto de você", style = Typography.bodyLarge)
+            Text(text = "Explore locais perto de você", style = Typography.bodyLarge,)
         }
         items(items = markets, key = { it.id }) { market ->
             NearbyMarketCard(market = market,
@@ -34,7 +34,7 @@ fun NearbyMarketCardList(
 
 @Preview
 @Composable
-fun NearbyMarketCardListPreview() {
+private fun NearbyMarketCardListPreview() {
     NearbyMarketCardList(
         markets = mockMarkets,
         onMarketClick = {}
