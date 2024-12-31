@@ -16,11 +16,7 @@ android {
 		versionName = "1.0"
 
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-		buildConfigField(
-			"String",
-			"GOOGLE_API_KEY",
-			"\"${project.findProperty("GOOGLE_API_KEY")}\""
-		)
+		manifestPlaceholders["google_maps_api_key"] = project.findProperty("GOOGLE_MAPS_API") ?: ""
 	}
 
 	buildTypes {
