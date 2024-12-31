@@ -1,7 +1,11 @@
+import org.gradle.kotlin.dsl.android
+import org.gradle.kotlin.dsl.libs
+
 plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.compose)
+	kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -16,11 +20,7 @@ android {
 		versionName = "1.0"
 
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-		buildConfigField(
-			"String",
-			"GOOGLE_API_KEY",
-			"\"${project.findProperty("GOOGLE_API_KEY")}\""
-		)
+		manifestPlaceholders["google_maps_api_key"] = project.findProperty("GOOGLE_MAPS_API") ?: ""
 	}
 
 	buildTypes {
@@ -54,6 +54,8 @@ android {
 dependencies {
 	implementation(libs.coil.compose)
 	implementation(libs.maps.compose)
+	implementation(libs.navigation.compose)
+	implementation(libs.kotlin.serialization)
 
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.androidx.lifecycle.runtime.ktx)

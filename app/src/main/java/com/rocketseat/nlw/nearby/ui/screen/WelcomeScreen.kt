@@ -18,32 +18,37 @@ import com.rocketseat.nlw.nearby.ui.component.welcome.WelcomeContent
 import com.rocketseat.nlw.nearby.ui.component.welcome.WelcomeHeader
 
 @Composable
-fun WelcomeScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
+fun WelcomeScreen(
+    modifier: Modifier = Modifier,
+    onNavigateToHome: () -> Unit,
+) {
+	Column(
+		modifier = modifier
             .background(Color.White)
             .fillMaxSize()
             .padding(horizontal = 40.dp, vertical = 48.dp)
             .verticalScroll(state = rememberScrollState()),
-        verticalArrangement = Arrangement.SpaceBetween
+		verticalArrangement = Arrangement.SpaceBetween
 
-    ) {
-        WelcomeHeader()
-        WelcomeContent()
-        NearbyButton(
-            modifier = Modifier.fillMaxWidth(),
-            text = "Começar",
-            onClick = {}
-        )
+	) {
+		WelcomeHeader()
+		WelcomeContent()
+		NearbyButton(
+			modifier = Modifier.fillMaxWidth(),
+			text = "Começar",
+			onClick = {
+				onNavigateToHome()
+			}
+		)
 
 
-    }
+	}
 
 }
 
 @Preview
 @Composable
 private fun WelcomeScreenPreview() {
-    WelcomeScreen()
+	WelcomeScreen( onNavigateToHome ={})
 
 }
