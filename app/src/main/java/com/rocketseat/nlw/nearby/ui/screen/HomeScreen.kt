@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.maps.android.compose.GoogleMap
+import com.rocketseat.nlw.nearby.data.model.Market
 import com.rocketseat.nlw.nearby.data.model.mock.mockCategories
 import com.rocketseat.nlw.nearby.data.model.mock.mockMarkets
 import com.rocketseat.nlw.nearby.ui.component.category.NearbyCategoryFilterChipList
@@ -26,54 +27,60 @@ import com.rocketseat.nlw.nearby.ui.theme.Gray100
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-    val bottomSheetState = rememberBottomSheetScaffoldState()
-    val isBottomSheetOpen by remember { mutableStateOf(true) }
+fun HomeScreen(
+	modifier: Modifier = Modifier,
+	onNavigateToMarketDetails: (Market) -> Unit,
+) {
+	val bottomSheetState = rememberBottomSheetScaffoldState()
+	val isBottomSheetOpen by remember { mutableStateOf(true) }
 
-    val configuration = LocalConfiguration.current
+	val configuration = LocalConfiguration.current
 
-    if (isBottomSheetOpen) {
-        BottomSheetScaffold(
-            scaffoldState = bottomSheetState,
-            sheetContentColor = Gray100,
-            sheetPeekHeight = configuration.screenHeightDp.dp * 0.5f,
-            sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-            sheetContent = {
-                NearbyMarketCardList(
-                    modifier = Modifier
+	if (isBottomSheetOpen) {
+		BottomSheetScaffold(
+			modifier = modifier,
+			scaffoldState = bottomSheetState,
+			sheetContentColor = Gray100,
+			sheetPeekHeight = configuration.screenHeightDp.dp * 0.5f,
+			sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+			sheetContent = {
+				NearbyMarketCardList(
+					modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    markets = mockMarkets,
-                    onMarketClick = {}
-                )
-            },
-            content = {
-                Box(
-                    modifier = Modifier
+					markets = mockMarkets,
+					onMarketClick = { selectedMarket ->
+						onNavigateToMarketDetails(selectedMarket)
+					}
+				)
+			},
+			content = {
+				Box(
+					modifier = Modifier
                         .fillMaxWidth()
                         .padding(it)
-                ) {
-                    GoogleMap(
-                        modifier = Modifier.fillMaxSize()
-                    )
-                    NearbyCategoryFilterChipList(
+				) {
+					GoogleMap(
+						modifier = Modifier.fillMaxSize()
+					)
+					NearbyCategoryFilterChipList(
                         Modifier
                             .fillMaxWidth()
                             .padding(top = 24.dp)
                             .align(Alignment.TopStart),
-                        categories = mockCategories,
-                        onSelectedCategoryChanged = { }
-                    )
-                }
-            }
+						categories = mockCategories,
+						onSelectedCategoryChanged = { }
+					)
+				}
+			}
 
-        )
-    }
+		)
+	}
 }
 
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+	HomeScreen(onNavigateToMarketDetails = {})
 }
 //
